@@ -12,8 +12,8 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
-                    <h1>User Index</h1>
+                <div class="card-header text-center">
+                    <h1 class="bold">User Lists</h1>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -27,10 +27,22 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td></td>
-                            </tr>
+                            @foreach ($user as $key => $u)
+                                <tr>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $u->name }}</td>
+                                    <td>{{ $u->email }}</td>
+                                    <td>{{ $u->created_at->diffForHumans() }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-success"><i class="fa fa-pen"></i></a>
+                                        <form action="{{ route('user.destroy', $u->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
