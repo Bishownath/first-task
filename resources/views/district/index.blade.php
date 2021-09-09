@@ -37,7 +37,9 @@
                                 <td>
                                     <a href="{{ route('district.show', $d->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                     <a href="{{ route('district.edit', $d->id) }}" class="btn btn-success"><i class="fa fa-pen"></i></a>
-                                <form action="{{ route('district.destroy', $d->id) }}">
+                                <form action="{{ route('district.destroy', $d->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 </form></td>
                             </tr>

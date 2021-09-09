@@ -41,7 +41,9 @@
                                 <td>
                                     <a href="{{ route('municipality.show', $d->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                     <a href="{{ route('municipality.edit', $d->id) }}" class="btn btn-success"><i class="fa fa-pen"></i></a>
-                                <form action="{{ route('municipality.destroy', $d->id) }}">
+                                <form action="{{ route('municipality.destroy', $d->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 </form></td>
                             </tr>

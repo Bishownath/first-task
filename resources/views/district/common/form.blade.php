@@ -8,7 +8,7 @@
         <br>
        
         <label for="state_id">State ID</label>
-        {!! Form::select('state_id', $state, ['class' => 'form-control', 'id' => 'state_id', 'placeholder' => 'Enter State ID']) !!}
+        {!! Form::select('state_id', $state, null, ['class' => 'form-control', 'id' => 'state_id', 'placeholder' => 'Enter State ID']) !!}
         @if ($errors->has('state_id'))
             <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('state_id') }}**</span>
         @endif

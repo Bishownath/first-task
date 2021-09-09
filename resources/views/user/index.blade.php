@@ -34,8 +34,14 @@
                                     <td>{{ $u->name }}</td>
                                     <td>{{ $u->email }}</td>
                                     <td>{{ $u->created_at->diffForHumans() }}</td>
-                                    <td><img src="{{ asset('images/user/' . $u->image) }}" alt="" width="100px"
-                                            height="100px"></td>
+                                    <td>
+                                        @if ($u->image)
+                                            
+                                        <img src="{{ asset('images/user/' . $u->image) }}" alt="" width="100px"
+                                        height="100px"></td>
+                                        @else
+                                        <p>No Image</p>
+                                        @endif
                                     <td>
                                         <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
                                                 class="fa fa-eye"></i></a>

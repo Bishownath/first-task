@@ -12,9 +12,9 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => 'max:255|required',
-            'code' => 'max:255',
-            'ward_number' => 'max:255',
-            'district_id' => 'max:255'
+            'code' => 'max:255|required',
+            'ward_number' => 'max:255|required',
+            'district_id' => 'max:255|required'
         ];
     }
 

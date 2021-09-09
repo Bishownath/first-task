@@ -36,14 +36,15 @@ class MunicipalityController extends Controller
         $municipality = Municipality::create($request->data());
         return redirect()->route('municipality.index')
             ->with([
-                'municipality' => $municipality,
+                'success' => 'Successfully Stored !!',
             ]);
     }
 
 
     public function show(Municipality $municipality)
     {
-        return view('municipality.create')
+       
+        return view('municipality.show')
             ->with([
                 'municipality' => $municipality,
             ]);
@@ -52,9 +53,11 @@ class MunicipalityController extends Controller
 
     public function edit(Municipality $municipality)
     {
-        return view('municipality.create')
+        $district = District::select('id','name')->pluck('name','id');
+        return view('municipality.edit')
             ->with([
                 'municipality' => $municipality,
+                'district' => $district,
             ]);
     }
 

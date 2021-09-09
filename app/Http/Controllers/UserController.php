@@ -39,12 +39,15 @@ class UserController extends Controller
             $extension = $inputfile->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $inputfile->move('images/user', $filename);
-            $user->image = $filename;
+            // $request->merge(['image' => $inputfile]);
+            if ($filename) {
+                $user->image = $filename;
+            }
+
         }
         $user->save();
         return redirect()->route('user.index')
             ->with([
-                'user' => $user,
                 'success' => 'Successfully Stored !!'
             ]);
     }
@@ -66,12 +69,35 @@ class UserController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, User $user)
+    // public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request, $id)
     {
-        $user->update($request->data());
-        return redirect()->route('user.index')->with([
-            'success' => 'User Updated Successfully !!',
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        if ($request->hasFile('image')) {
+            $inputfile = $request->file('image');
+            $extension = $inputfile->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $inputfile->move('images/user', $filename);
+            $user->image = $filename;
+            // $request->merge(['image' => $inputfile]);
+            // $user->update(['image' => $filename]);
+            $user->image = $filename;
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->name,
+            'password' => Hash::make($request->password),
         ]);
+
+        return redirect()->route('user.index')
+            ->with([
+                'success' => 'User Updated Successfully !!',
+            ]);
     }
 
 

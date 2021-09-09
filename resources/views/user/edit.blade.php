@@ -7,7 +7,7 @@
                 <div class="card-header">
                     Edit User
                 </div>
-                {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch']) !!}
+                {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch', 'enctype'=>"multipart/form-data"]) !!}
                 @csrf
                 @include('user.common.form')
                 <div class="mt-2 justify-content-center d-flex">

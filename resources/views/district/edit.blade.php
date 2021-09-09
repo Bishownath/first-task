@@ -6,6 +6,7 @@
             <div class="card">
                 {!! Form::model($district, ['route'=>['district.update', $district->id],'method'=>'put', 'enctype'=>'multipart/form-data'])   !!}
                 @csrf
+                {{-- {{ $district }} --}}
                 @include('district.common.form')
 
                 <div class="row justify-content-center d-flex">

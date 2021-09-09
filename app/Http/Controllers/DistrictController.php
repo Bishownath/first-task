@@ -52,8 +52,10 @@ class DistrictController extends Controller
 
     public function edit(District $district)
     {
+        $state = State::select('id','name')->pluck('name','id');
         return view('district.edit')->with([
             'district' => $district,
+            'state' => $state,
         ]);
     }
 
