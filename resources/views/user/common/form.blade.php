@@ -6,13 +6,20 @@
             <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('name') }}**</span>
         @endif
         <br>
-        {{-- <label for="address">Address</label>
-        {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Enter address']) !!} --}}
-
+        
         <label for="email">Email</label>
         {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter email']) !!}
         @if ($errors->has('email'))
-            <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('email') }}**</span>
+        <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('email') }}**</span>
+        @endif
+        <br>
+        
+        <label class="" for="image">Upload Image</label><br>
+        <input type="file" name="image" id="image" class="form-control">
+        {{-- {!! Form::file('image', null, ['class' => 'form-control', 'id' => 'image', 'placeholder' => 'Upload image']) !!} --}}
+        <br>
+        @if ($errors->has('image'))
+        <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('image') }}**</span>
         @endif
         <br>
 

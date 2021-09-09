@@ -45,6 +45,17 @@
                             <a href="{{ route('user.index') }}" class="nav-link">User</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('state.index') }}" class="nav-link">State</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('district.index') }}" class="nav-link">District</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('municipality.index') }}" class="nav-link">Municipality</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 
+
 class UserController extends Controller
 {
-
     public function index()
     {
         $user = User::all();
@@ -28,12 +29,24 @@ class UserController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $user = User::create($request->data());
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
 
-        return redirect()->route('user.index')->with([
-            'user' => $user,
-            'success' => 'Added Successfully !!',
-        ]);
+        if ($request->hasFile('image')) {
+            $inputfile = $request->file('image');
+            $extension = $inputfile->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $inputfile->move('images/user', $filename);
+            $user->image = $filename;
+        }
+        $user->save();
+        return redirect()->route('user.index')
+            ->with([
+                'user' => $user,
+                'success' => 'Successfully Stored !!'
+            ]);
     }
 
 
@@ -47,7 +60,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        // dd($user);
         return view('user.edit')->with([
             'user' => $user,
         ]);
@@ -66,7 +78,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
         return redirect()->route('user.index')
             ->with('success', 'Deleted Successfully !!');
     }

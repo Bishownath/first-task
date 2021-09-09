@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\State;
+use Illuminate\Http\Request;
+use App\Http\Requests\State\StoreRequest;
+use App\Http\Requests\State\UpdateRequest;
+
+class StateController extends Controller
+{
+
+    public function index()
+    {
+        $state = State::get();
+        return view('state.index')->with([
+            'state' => $state,
+        ]);
+    }
+
+
+    public function create()
+    {
+        return view('state.create');
+    }
+
+
+    public function store(StoreRequest $request)
+    {
+        $state = State::create($request->data());
+
+        return redirect()->route('state.index')
+            ->with([
+                'success' => 'Stored Successfully',
+            ]);
+    }
+
+
+    public function show(State $state)
+    {
+        return view('state.show')->with([
+            'state' => $state,
+        ]);
+    }
+
+
+    public function edit(State $state)
+    {
+        return view('state.edit')->with([
+            'state' => $state,
+        ]);
+    }
+
+
+    public function update(UpdateRequest $request, State $state)
+    {
+        $state->update($request->data());
+
+        return redirect()->route('state.index')
+            ->with([
+                'success' => 'Successfully Updated',
+            ]);
+    }
+
+
+    public function destroy(State $state)
+    {
+        $state->delete();
+        return redirect()->route('state.index')
+            ->with([
+                'success' => 'Successfully Deleted !!',
+            ]);
+    }
+}

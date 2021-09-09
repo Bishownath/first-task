@@ -23,6 +23,7 @@
                                 <td>Name</td>
                                 <td>Email</td>
                                 <td>Created At</td>
+                                <td>Image</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
@@ -33,9 +34,13 @@
                                     <td>{{ $u->name }}</td>
                                     <td>{{ $u->email }}</td>
                                     <td>{{ $u->created_at->diffForHumans() }}</td>
+                                    <td><img src="{{ asset('images/user/' . $u->image) }}" alt="" width="100px"
+                                            height="100px"></td>
                                     <td>
-                                        <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                                        <a href="{{ route('user.edit', $u->id) }}" class="btn btn-success"><i class="fa fa-pen"></i></a>
+                                        <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
+                                                class="fa fa-eye"></i></a>
+                                        <a href="{{ route('user.edit', $u->id) }}" class="btn btn-success"><i
+                                                class="fa fa-pen"></i></a>
                                         <form action="{{ route('user.destroy', $u->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -44,7 +49,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
