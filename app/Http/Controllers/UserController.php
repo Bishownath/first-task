@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -38,19 +39,27 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        //
+        return view('user.show')->with([
+            'user' => $user,
+        ]);
     }
 
 
     public function edit(User $user)
     {
-        //
+        // dd($user);
+        return view('user.edit')->with([
+            'user' => $user,
+        ]);
     }
 
 
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        //
+        $user->update($request->data());
+        return redirect()->route('user.index')->with([
+            'success' => 'User Updated Successfully !!',
+        ]);
     }
 
 

@@ -71,7 +71,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -88,6 +88,21 @@
         </nav>
 
         <main class="py-4">
+
+            @if ($errors->any())
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger">
+                            **Something Went Wrong**
+                            @foreach ($errors as $error)
+                                <li>
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             @if (session()->has('success'))
                 <div class="justify-content-center d-flex">

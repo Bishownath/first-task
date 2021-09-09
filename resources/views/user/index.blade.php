@@ -34,7 +34,8 @@
                                     <td>{{ $u->email }}</td>
                                     <td>{{ $u->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a href="" class="btn btn-success"><i class="fa fa-pen"></i></a>
+                                        <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('user.edit', $u->id) }}" class="btn btn-success"><i class="fa fa-pen"></i></a>
                                         <form action="{{ route('user.destroy', $u->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
