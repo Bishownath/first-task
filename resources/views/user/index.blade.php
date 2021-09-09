@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             @foreach ($user as $key => $u)
-                                <tr>
+                            <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $u->name }}</td>
                                     <td>{{ $u->email }}</td>
@@ -40,7 +40,7 @@
                                         <img src="{{ asset('images/user/' . $u->image) }}" alt="" width="100px"
                                         height="100px"></td>
                                         @else
-                                        <p>No Image</p>
+                                        <h2>No Image</h2>
                                         @endif
                                     <td>
                                         <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i

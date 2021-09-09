@@ -15,6 +15,7 @@
                 <div class="card-header">
                     <h3>Municipality List</h3>
                 </div>
+                @if ($municipality->count())                    
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -51,6 +52,11 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                @else
+                <h3 class="text-center text-danger">THERE IS NO DATA !!</h3>
+                @endif
+
             </div>
         </div>
     </div>
