@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
@@ -43,7 +44,6 @@ class UserController extends Controller
             if ($filename) {
                 $user->image = $filename;
             }
-
         }
         $user->save();
         return redirect()->route('user.index')
@@ -75,11 +75,21 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
 
-        if ($request->hasFile('image')) {
+
+        if ($request->hasFile('image') && $request->image != '') {
+            $imagePath = ("images/user/" . $user->image);
+
+            if (File::exists($imagePath)) {
+                unlink($imagePath);
+            }
+
             $inputfile = $request->file('image');
             $extension = $inputfile->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $inputfile->move('images/user', $filename);
+
+
+
             $user->image = $filename;
             // $request->merge(['image' => $inputfile]);
             // $user->update(['image' => $filename]);
@@ -101,6 +111,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $imagePath = ("images/user/" . $user->image);
+        unlink($imagePath);
         $user->delete();
         return redirect()->route('user.index')
             ->with('success', 'Deleted Successfully !!');
