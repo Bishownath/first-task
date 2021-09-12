@@ -20,4 +20,9 @@ class Municipality extends Model
     {
         return $this->belongsTo(District::class);
     }
+
+    public function people()
+    {
+        return $this->hasMany(Person::class, 'person_id');
+    }
 }

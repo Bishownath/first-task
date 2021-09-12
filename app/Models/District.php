@@ -23,4 +23,9 @@ class District extends Model
     {
         return $this->hasMany(Municipality::class);
     }
+
+    public function people()
+    {
+        return $this->hasMany(Person::class, 'person_id');
+    }
 }

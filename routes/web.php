@@ -28,4 +28,6 @@ Route::group(['namespace' => 'App\\Http\\Controllers', 'middleware' => 'auth'], 
     Route::resource('state', StateController::class);
     Route::resource('district', DistrictController::class);
     Route::resource('municipality', MunicipalityController::class);
+    Route::resource('person', PersonController::class);
+
 });

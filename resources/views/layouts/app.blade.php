@@ -21,7 +21,12 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css"
+        href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+    @yield('datatables')
 </head>
 
 <body>
@@ -48,13 +53,17 @@
                         <li class="nav-item">
                             <a href="{{ route('state.index') }}" class="nav-link">State</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="{{ route('district.index') }}" class="nav-link">District</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="{{ route('municipality.index') }}" class="nav-link">Municipality</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('person.index') }}" class="nav-link">Person</a>
                         </li>
                     </ul>
 
@@ -82,7 +91,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

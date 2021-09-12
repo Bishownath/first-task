@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +42,6 @@ class UserController extends Controller
             $extension = $inputfile->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $inputfile->move('images/user', $filename);
-            // $request->merge(['image' => $inputfile]);
             if ($filename) {
                 $user->image = $filename;
             }
@@ -70,7 +71,7 @@ class UserController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
@@ -84,16 +85,13 @@ class UserController extends Controller
             }
 
             $inputfile = $request->file('image');
-            $extension = $inputfile->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
+            $filename = time() . Str::random(20) . '.' . $inputfile->getClientOriginalExtension();
             $inputfile->move('images/user', $filename);
-
-
 
             $user->image = $filename;
             // $request->merge(['image' => $inputfile]);
             // $user->update(['image' => $filename]);
-            $user->image = $filename;
+            // $user->image = $filename;
         }
 
         $user->update([

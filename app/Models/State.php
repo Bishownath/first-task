@@ -17,4 +17,9 @@ class State extends Model
     {
         return $this->hasMany(District::class);
     }
+
+    public function people()
+    {
+        return $this->hasMany(Person::class, 'person_id');
+    }
 }
