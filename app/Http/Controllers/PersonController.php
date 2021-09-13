@@ -97,7 +97,7 @@ class PersonController extends Controller
         $state_id = $request->input('state_id');
         $district = District::where('state_id', $state_id)->get();
 
-        $html = '<option value=""> Select District</option>';
+        $html = '<option value="">Select District</option>';
         foreach ($district as $dt) {
             $html .= '<option value="' . $dt->id . '">' . $dt->name . ' </option>';
         }

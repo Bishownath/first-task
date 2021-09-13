@@ -14,7 +14,9 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <p>Another Section for the Show Page</p>
+                    <p>Grand-father Name:{{ $person->grandfather_name }}</p>
+                    <p>Father Name: {{ $person->father_name }}</p>
+                    <p>D.O.B: {{ $person->date_of_birth }}</p>
                 </div>
             </div>
         </div>
