@@ -19,7 +19,6 @@ class PersonController extends Controller
         $state = State::get();
         $district = District::get();
         $municipality = Municipality::get();
-        // $person = Person::get();
         $person = Person::with('state', 'district', 'municipality')->get();
 
         return view('person.index', compact('state', 'district', 'municipality'))
@@ -39,31 +38,6 @@ class PersonController extends Controller
 
     public function store(StoreRequest $request)
     {
-
-        // $person = new Person();
-        // $person->name = $request->name;
-        // $person->address = $request->address;
-        // $person->address_2 = $request->address_2;
-        // $person->email = $request->email;
-        // $person->phone_number = $request->phone_number;
-        // $person->mobile_number = $request->mobile_number;
-        // $person->age = $request->age;
-        // $person->gender = $request->gender;
-        // $person->state_id = $request->state_id;
-        // $person->district_id = $request->district_id;
-        // $person->municipality_id = $request->municipality_id;
-        // $person->citizenship_number = $request->citizenship_number;
-        // $person->passport_number = $request->passport_number;
-        // $person->blood_group = $request->blood_group;
-        // $person->date_of_birth = $request->date_of_birth;
-        // $person->grandfather_name = $request->grandfather_name;
-        // $person->father_name = $request->father_name;
-        // $person->issue_date = $request->issue_date;
-        // $person->validity_date = $request->validity_date;
-        // $person->issued_from = $request->issued_from;
-        // $person->issued_from = $request->issued_from;
-        // $person->issued_by = $request->issued_by;
-
         $person = Person::create($request->data());
 
         if ($request->hasFile('image')) {
@@ -120,12 +94,9 @@ class PersonController extends Controller
 
     public function getDistrict(Request $request)
     {
-        // $state_id = District::where('state_id', )->get();
         $state_id = $request->post('state_id');
-
         $district = District::where('state_id', $state_id)->get();
 
-        //    echo $district; 
         $html = '<option value=""> Select District</option>';
         foreach ($district as $dt) {
             $html .= '<option value="' . $dt->id . '">' . $dt->name . ' </option>';
