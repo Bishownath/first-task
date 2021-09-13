@@ -248,8 +248,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Issued From</label>
-                                    <input type="text" value="now()" name="issued_from" class="form-control" id=""
-                                        placeholder="Enter ">
+                                    <input type="text" value="{{ now() }}" name="issued_from"
+                                        class="form-control" id="" placeholder="Enter ">
                                 </div>
                             </div>
 
@@ -277,16 +277,6 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <script>
-        // $(function() {
-
-        //     $.ajax({
-        //         method: 'POST',
-        //         url: ' ',
-        //         data: '',
-        //     });
-
-        // });
-
         $(document).ready(function() {
             $('#state_id').change(function() {
                 let state_id = $(this).val();
@@ -302,7 +292,7 @@
             })
         });
     </script>
-    
+
     <script>
         $(document).ready(function() {
             $('#district_id').change(function() {
