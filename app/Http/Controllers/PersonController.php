@@ -7,6 +7,7 @@ use App\Models\Person;
 use App\Models\District;
 use Illuminate\Support\Str;
 use App\Models\Municipality;
+use Illuminate\Http\Request;
 use App\Http\Requests\Person\StoreRequest;
 use App\Http\Requests\Person\UpdateRequest;
 
@@ -115,5 +116,34 @@ class PersonController extends Controller
         $person->delete();
         return redirect()->route('person.index')
             ->with('success', 'Deleted Successfully');
+    }
+
+    public function getDistrict(Request $request)
+    {
+        // $state_id = District::where('state_id', )->get();
+        $state_id = $request->post('state_id');
+
+        $district = District::where('state_id', $state_id)->get();
+
+        //    echo $district; 
+        $html = '<option value=""> Select District</option>';
+        foreach ($district as $dt) {
+            $html .= '<option value="' . $dt->id . '">' . $dt->name . ' </option>';
+        }
+        echo $html;
+    }
+
+
+    public function getMunicipality(Request $request)
+    {
+        $district_id = $request->post('district_id');
+
+        $municipality = Municipality::where('district_id', $district_id)->get();
+
+        $html = '<option>Select Municipality</option>';
+        foreach ($municipality as $mn) {
+            $html .= '<option value="' . $mn->id . '"> ' . $mn->name . '</option>';
+        }
+        echo $html;
     }
 }
