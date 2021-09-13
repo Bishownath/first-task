@@ -94,7 +94,7 @@ class PersonController extends Controller
 
     public function getDistrict(Request $request)
     {
-        $state_id = $request->post('state_id');
+        $state_id = $request->input('state_id');
         $district = District::where('state_id', $state_id)->get();
 
         $html = '<option value=""> Select District</option>';
@@ -107,7 +107,7 @@ class PersonController extends Controller
 
     public function getMunicipality(Request $request)
     {
-        $district_id = $request->post('district_id');
+        $district_id = $request->input('district_id');
 
         $municipality = Municipality::where('district_id', $district_id)->get();
 
