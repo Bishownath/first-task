@@ -7,14 +7,18 @@ use App\Models\State;
 use App\Models\Municipality;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
     protected $table = 'people';
     
     protected $fillable = [
         'name',
+        'slug',
         'address',
         'address_2',
         'email',
@@ -34,7 +38,7 @@ class Person extends Model
         'father_name',
         'issue_date',
         'validity_date',
-        'issued_from',
+        'status',
         'issued_by',
     ];
 

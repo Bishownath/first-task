@@ -22,6 +22,7 @@
                                 <tr>
                                     <td>S.N.</td>
                                     <td>Name</td>
+                                    <td>Slug</td>
                                     <td>Created At</td>
                                     <td>Action</td>
                                 </tr>
@@ -31,6 +32,7 @@
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $st->name }}</td>
+                                        <td>{{ $st->slug }}</td>
                                         <td>{{ $st->created_at->diffForHumans() }}</td>
                                         <td>
                                             <a href="{{ route('state.show', $st->id) }}" class="btn btn-info"><i

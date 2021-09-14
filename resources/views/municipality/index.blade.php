@@ -21,6 +21,7 @@
                         <tr>
                             <td>S.N</td>
                             <td>Name</td>
+                            <td>Slug</td>
                             <td>Code</td>
                             <td>Ward Number</td>
                             <td>District</td>
@@ -35,6 +36,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $d->name }}</td>
+                                <td>{{ $d->slug }}</td>
                                 <td>{{ $d->code }}</td>
                                 <td>{{ $d->ward_number }}</td>
                                 <td>{{ $d->district->name }}</td>

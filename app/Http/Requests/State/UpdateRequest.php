@@ -10,7 +10,8 @@ class UpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'max:255|required'
+            'name' => 'max:255|required',
+            'slug' => 'max:255|required',
         ];
     }
 
@@ -18,6 +19,7 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'name' => $this->input('name'),
+            'slug' => $this->input('slug'),
         ];
     }
 }

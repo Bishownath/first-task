@@ -22,6 +22,7 @@
                         <tr>
                             <td>S.N</td>
                             <td>Name</td>
+                            <td>Slug</td>
                             <td>Address</td>
                             <td>Email</td>
                             <td>State</td>
@@ -38,6 +39,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $p->name }}</td>
+                                <td>{{ $p->slug }}</td>
                                 <td>{{ $p->address }}</td>
                                 <td>{{ $p->email }}</td>
                                 <td>{{ $p->state->name }}</td>

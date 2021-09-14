@@ -8,6 +8,7 @@ use App\Models\District;
 use Illuminate\Support\Str;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Person\StoreRequest;
 use App\Http\Requests\Person\UpdateRequest;
 
@@ -81,6 +82,22 @@ class PersonController extends Controller
     public function update(UpdateRequest $request, Person $person)
     {
         $person->update($request->data());
+
+        if ($request->hasFile('image') && $request->image != '') {
+            $imagePath = ("images/person/" . $person->image);
+
+            if (File::exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $inputFile = $request->file('image');
+            $filename = Str::random(10) . '.' . $inputFile->getClientOriginalExtension();
+            $inputFile->move('images/person', $filename);
+            // $request->merge(['image' => $filename]);
+            $person->image = $filename;
+        }
+
+        $person->save();
+
         return redirect()->route('person.index')
             ->with('success', 'Successfully Updated !!');
     }

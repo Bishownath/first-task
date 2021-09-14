@@ -23,6 +23,7 @@
                             <tr>
                                 <td>S.N</td>
                                 <td>Name</td>
+                                <td>Slug</td>
                                 <td>State</td>
                                 <td>Created At</td>
                                 <td>Action</td>
@@ -35,6 +36,7 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $d->name }}</td>
+                                    <td>{{ $d->slug }}</td>
                                     <td>{{ $d->state->name }}</td>
                                     <td>{{ $d->created_at->diffForHumans() }}</td>
                                     <td>

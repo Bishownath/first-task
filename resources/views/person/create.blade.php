@@ -8,7 +8,7 @@
                     <form action="{{ route('person.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
 
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -19,7 +19,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label for="slug">Slug</label>
+                                    <input type="text" name="slug" class="form-control" id="slug"
+                                        placeholder="Enter Slug">
+                                    @if ($errors->has('slug'))
+                                        <span class="alert text-danger">{{ $errors->first('slug') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input type="text" name="email" class="form-control" id="email"
@@ -128,7 +140,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Age</label>
-                                    <input type="text" name="age" class="form-control" id="" placeholder="Enter Age ">
+                                    <input type="number" name="age" class="form-control" id="" placeholder="Enter Age ">
                                     @if ($errors->has('age'))
                                         <span class="alert text-danger">{{ $errors->first('age') }}</span>
                                     @endif
@@ -244,15 +256,6 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Issued From</label>
-                                    <input type="text" value="{{ now() }}" name="issued_from"
-                                        class="form-control" id="" placeholder="Enter ">
-                                </div>
-                            </div>
-
 
                             <div class="col-md-3">
                                 <div class="form-group">

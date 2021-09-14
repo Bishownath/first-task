@@ -9,7 +9,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
 
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -21,7 +21,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label for="slug">Slug</label>
+                                    <input type="text" name="slug" value="{{ old('slug', $person->slug) }}"
+                                        class="form-control" id="slug" placeholder="Enter Slug">
+                                    @if ($errors->has('slug'))
+                                        <span class="alert text-danger">{{ $errors->first('slug') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input type="text" name="email" value="{{ old('email', $person->email) }}"
@@ -122,7 +134,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Age</label>
-                                    <input type="text" name="age" value="{{ old('age', $person->age) }}"
+                                    <input type="number" name="age" value="{{ old('age', $person->age) }}"
                                         class="form-control" id="" placeholder="Enter ">
                                 </div>
                             </div>
@@ -133,9 +145,12 @@
                                     <label for="">Gender</label>
                                     <select name="gender" value="{{ old('gender', $person->gender) }}" id="gender"
                                         class="form-control">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="male" {{ $person->gender == 'male' ? 'selected' : '' }}>Male
+                                        </option>
+                                        <option value="female" {{ $person->gender == 'female' ? 'selected' : '' }}>Female
+                                        </option>
+                                        <option value="other" {{ $person->gender == 'other' ? 'selected' : '' }}>Other
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -144,8 +159,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Image</label>
-                                    <input type="file" name="image" value="{{ old('image', $person->image) }}"
-                                        class="form-control" id="" placeholder="Enter ">
+                                    <input type="file" name="image" value="{{ $person->image }}"
+                                        {{ $person->image }} class="form-control">
                                 </div>
                             </div>
 
@@ -238,16 +253,6 @@
                                             class="form-control" id="" placeholder="Enter ">
                                     </div>
                                 </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="">Issued From</label>
-                                        <input type="text" name="issued_from"
-                                            value="{{ old('issued_from', $person->issued_from) }}" class="form-control"
-                                            id="" placeholder="Enter ">
-                                    </div>
-                                </div>
-
 
                                 <div class="col-md-3">
                                     <div class="form-group">

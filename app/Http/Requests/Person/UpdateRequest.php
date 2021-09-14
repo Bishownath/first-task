@@ -10,6 +10,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'max:255|required',
+            'slug' => 'max:255|required',
             'address' => 'max:255|required',
             'address_2' => 'max:255',
             'email' => 'max:255|required',
@@ -38,6 +39,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => $this->input('name'),
+            'slug' => $this->input('slug'),
             'address' => $this->input('address'),
             'address_2' => $this->input('address_2'),
             'email' => $this->input('email'),

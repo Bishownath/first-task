@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                {!! Form::model($state, ['route' => ['state.update', $state->id], 'method' => 'put', 'enctype'=>"multipart/form-data"]) !!}
+                {!! Form::model($state, ['route' => ['state.update', $state->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
                 @csrf
                 @include('state.common.form')
 

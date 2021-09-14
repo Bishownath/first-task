@@ -14,6 +14,8 @@ class Municipality extends Model
         'code',
         'ward_number',
         'district_id',
+        'slug',
+        'status',
     ];
 
     public function district()

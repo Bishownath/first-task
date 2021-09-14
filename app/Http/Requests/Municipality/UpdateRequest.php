@@ -11,6 +11,7 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'name' => 'max:255|required',
+            'slug' =>  'max:255|required|',
             'code' => 'max:255',
             'ward_number' => 'max:255',
             'district_id' => 'max:255'
@@ -21,6 +22,7 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'name' => $this->input('name'),
+            'slug' => $this->input('slug'),
             'code' => $this->input('code'),
             'ward_number' => $this->input('ward_number'),
             'district_id' => $this->input('district_id'),

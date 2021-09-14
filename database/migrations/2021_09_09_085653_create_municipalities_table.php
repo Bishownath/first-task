@@ -15,10 +15,13 @@ class CreateMunicipalitiesTable extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('district_id');
             $table->string('name');
             $table->string('code');
             $table->string('ward_number');
-            $table->unsignedBigInteger('district_id');
+            $table->string('slug')->unique();
+            $table->string('status')->default(0);
+
             $table->timestamps();
 
             $table->foreign('district_id')->references('id')->on('districts');

@@ -11,7 +11,9 @@ class District extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'state_id',
+        'status',
     ];
 
     public function state()
