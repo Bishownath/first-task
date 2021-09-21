@@ -19,10 +19,10 @@ class CreateDistrictsTable extends Migration
             $table->string('name');
             $table->timestamps();
             $table->string('slug')->unique();
-            $table->string('status')->default(0);
+            $table->boolean('status')->default(0);
 
 
-            $table->foreign('state_id')->references('id')->on('states');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('restrict'); //the state cannot be deleted when it has the child record (district).
         });
     }
 

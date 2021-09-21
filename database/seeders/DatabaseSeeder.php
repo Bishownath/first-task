@@ -28,14 +28,14 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        State::factory(10)->create()->each(function ($row) {
-            $row->districts()->saveMany(District::factory(5)->make());
+        State::factory(5)->create()->each(function ($row) {
+            $row->districts()->saveMany(District::factory(3)->make());
         });
 
-        District::factory(10)->create()->each(function ($row) {
-            $row->municipalities()->saveMany(Municipality::factory(7)->make());
+        District::factory(5)->create()->each(function ($row) {
+            $row->municipalities()->saveMany(Municipality::factory(3)->make());
         });
 
-        Municipality::factory(15)->create();
+        Municipality::factory(5)->create();
     }
 }

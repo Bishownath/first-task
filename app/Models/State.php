@@ -16,6 +16,12 @@ class State extends Model
         'status',
     ];
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+        $this->attributes['slug'] = Str::slug($name);
+    }
+
     public function districts()
     {
         return $this->hasMany(District::class);
@@ -25,7 +31,6 @@ class State extends Model
     {
         return $this->hasMany(Person::class, 'person_id');
     }
-
 
     // public function getSlugAttribute($value)
     // {

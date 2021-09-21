@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\State\StoreRequest;
 use App\Http\Requests\State\UpdateRequest;
 use App\Models\District;
+use Exception;
 
 class StateController extends Controller
 {
@@ -66,10 +67,20 @@ class StateController extends Controller
 
     public function destroy(State $state)
     {
-        $state->delete();
-        return redirect()->route('state.index')
+        try{
+            $state->delete();
+            return redirect()->route('state.index')
             ->with([
                 'success' => 'Successfully Deleted !!',
             ]);
+        }
+        catch(Exception $e){
+            var_dump($e->errorInfo);
+            return redirect()->route('state.index')
+                ->with([
+                    'error' => 'State cannot be deleted when it has the child data in it !!'
+                ]);
+        }
+        
     }
 }

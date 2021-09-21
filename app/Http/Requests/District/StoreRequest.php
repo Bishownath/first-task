@@ -11,7 +11,6 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => 'max:255|required',
-            'slug' => 'max:255|required',
             'state_id' => 'max:255'
         ];
     }
@@ -20,7 +19,6 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => $this->input('name'),
-            'slug' => $this->input('slug'),
             'state_id' => $this->input('state_id'),
         ];
     }

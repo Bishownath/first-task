@@ -7,13 +7,6 @@
         @endif
         <br>
        
-        <label for="slug">Slug</label>
-        {!! Form::text('slug', null, ['class' => 'form-control', 'id' => 'slug', 'placeholder' => 'Enter Slug']) !!}
-        @if ($errors->has('slug'))
-            <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('slug') }}**</span>
-        @endif
-        <br>
-       
         <label for="state_id">State ID</label>
         {!! Form::select('state_id', $state, null, ['class' => 'form-control', 'id' => 'state_id', 'placeholder' => 'Enter State ID']) !!}
         @if ($errors->has('state_id'))

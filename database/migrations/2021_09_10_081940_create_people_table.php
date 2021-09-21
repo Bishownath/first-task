@@ -10,13 +10,15 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('state_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('municipality_id');
+           
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('address');
-            $table->string('address_2')->nullable();
+            $table->string('address_two')->nullable();
             $table->string('email');
             $table->string('phone_number')->nullable();
             $table->string('mobile_number');
@@ -26,13 +28,13 @@ class CreatePeopleTable extends Migration
             $table->string('passport_number')->nullable()->unique();
             $table->string('image')->nullable();
             $table->string('blood_group')->nullable();
-            $table->string('date_of_birth');
-            $table->string('grandfather_name')->nullable();
-            $table->string('father_name')->nullable();
+            $table->date('date_of_birth');
+            // $table->string('grandfather_name')->nullable();
+            // $table->string('father_name')->nullable();
             $table->string('issue_date')->nullable();
             $table->string('validity_date')->nullable();
             $table->string('issued_by')->nullable();
-            $table->string('status')->default(0);
+            $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
 

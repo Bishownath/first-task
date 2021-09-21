@@ -22,18 +22,6 @@
                             </div>
 
                             <div class="col-md-4">
-
-                                <div class="form-group">
-                                    <label for="slug">Slug</label>
-                                    <input type="text" name="slug" value="{{ old('slug', $person->slug) }}"
-                                        class="form-control" id="slug" placeholder="Enter Slug">
-                                    @if ($errors->has('slug'))
-                                        <span class="alert text-danger">{{ $errors->first('slug') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input type="text" name="email" value="{{ old('email', $person->email) }}"
@@ -134,7 +122,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Age</label>
-                                    <input type="number" name="age" value="{{ old('age', $person->age) }}"
+                                    <input type="number" name="age" min="1" value="{{ old('age', $person->age) }}"
                                         class="form-control" id="" placeholder="Enter ">
                                 </div>
                             </div>
@@ -159,7 +147,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Image</label>
-                                    <input type="file" name="image" value="{{ $person->image }}"
+                                    <input type="file" name="image" value="{{ old('image', $person->image) }}"
                                         {{ $person->image }} class="form-control">
                                 </div>
                             </div>
@@ -200,9 +188,19 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Blood Group</label>
-                                    <input type="text" name="blood_group"
-                                        value="{{ old('blood_group', $person->blood_group) }}" class="form-control"
-                                        id="" placeholder="Enter ">
+                                    <select name="blood_group" id="" class="form-control">
+                                        <option value="" selected>Select Blood Group</option>
+                                        <option value="o+" {{ $person->blood_group == 'o+' ? 'selected' : '' }}>O+
+                                        </option>
+                                        <option value="ab-" {{ $person->blood_group == 'ab-' ? 'selected' : '' }}>AB-
+                                        </option>
+                                        <option value="ab+" {{ $person->blood_group == 'ab+' ? 'selected' : '' }}>AB+
+                                        </option>
+                                        <option value="o-" {{ $person->blood_group == 'o-' ? 'selected' : '' }}>O-
+                                        </option>
+                                        <option value="b+" {{ $person->blood_group == 'b+' ? 'selected' : '' }}>B+
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -220,8 +218,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Grandfather Name</label>
+                                    {{-- {{ dd($person->family) }} --}}
                                     <input type="text" name="grandfather_name"
-                                        value="{{ old('grandfather_name', $person->grandfather_name) }}"
+                                        value="{{ old('grandfather_name', $person->family->grandfather_name) }}"
                                         class="form-control" id="" placeholder="Enter ">
                                 </div>
                             </div>
@@ -230,13 +229,74 @@
                                 <div class="form-group">
                                     <label for="">Father Name</label>
                                     <input type="text" name="father_name"
-                                        value="{{ old('father_name', $person->father_name) }}" class="form-control"
-                                        id="" placeholder="Enter ">
+                                        value="{{ old('father_name', $person->family->father_name) }}"
+                                        class="form-control" id="" placeholder="Enter ">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Grandmother Name</label>
+                                        <input type="text" class="form-control" name="grandmother_name"
+                                            value="{{ old('grandmother_name', $person->family->grandmother_name) }}"
+                                            placeholder="Enter grandmother name">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Mother Name</label>
+                                        <input type="text" class="form-control" name="mother_name"
+                                            value="{{ old('mother_name', $person->family->mother_name) }}"
+                                            placeholder="Enter mother name">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Wife Name</label>
+                                        <input type="text" class="form-control" name="wife_name"
+                                            value="{{ old('wife_name', $person->family->wife_name) }}"
+                                            placeholder="Enter wife name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">Son Name</label>
+                                        {{-- {{ dump($person->children) }}
+                                        {{ dd($person->children[0]) }} --}}
+                                        {{-- {{ dd($person->children[0]->son_name) }} --}}
+                                        <input type="text" class="form-control" name="son_name[]"
+                                            value="{{ old('son_name', $person->children[0]->son_name) }}"
+                                            placeholder="Enter son name"><br>
+                                        <input type="text" class="form-control" name="son_name[]"
+                                            value="{{ old('son_name', $person->children[1]->son_name) }}"
+                                            placeholder="Enter son name"><br>
+                                        <input type="text" class="form-control" name="son_name[]"
+                                            value="{{ old('son_name', $person->children[2]->son_name) }}"
+                                            placeholder="Enter son name"><br>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">Daughter Name</label>
+                                        <input type="text" class="form-control" name="daughter_name[]"
+                                            value="{{ old('daughter_name', $person->children[0]->daughter_name) }}"
+                                            placeholder="Enter daughter name"><br>
+                                        <input type="text" class="form-control" name="daughter_name[]"
+                                            value="{{ old('daughter_name', $person->children[1]->daughter_name) }}"
+                                            placeholder="Enter daughter name"><br>
+                                        <input type="text" class="form-control" name="daughter_name[]"
+                                            value="{{ old('daughter_name', $person->children[2]->daughter_name) }}"
+                                            placeholder="Enter daughter name"><br>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row ml-3">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Issued Date</label>
                                         <input type="date" name="issued_date"
@@ -245,7 +305,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Validity Date</label>
                                         <input type="date" name="validity_date"
@@ -254,7 +314,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Issued By</label>
                                         <input type="text" name="issued_by"

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Person\StoreRequest;
 use App\Http\Requests\Person\UpdateRequest;
+use App\Models\Child;
+use App\Models\Family;
 
 class PersonController extends Controller
 {
@@ -43,13 +45,32 @@ class PersonController extends Controller
 
         if ($request->hasFile('image')) {
             $inputFile = $request->file('image');
-            $filename = Str::random(10) . '.' . $inputFile->getClientOriginalExtension();
+            $filename = time() . Str::random(10) . '.' . $inputFile->getClientOriginalExtension();
             $inputFile->move('images/person', $filename);
-            // $request->merge(['image' => $filename]);
-            $person->image = $filename;
+            if ($filename) {
+                $person->image = $filename;
+            }
         }
-
         $person->save();
+
+        Family::create([
+            'people_id' => $person->id,
+            'father_name' => request()->father_name,
+            'grandfather_name' => request()->grandfather_name,
+            'grandmother_name' => request()->grandmother_name,
+            'mother_name' => request()->mother_name,
+            'wife_name' => request()->wife_name,
+        ]);
+
+        if ($request->son_name) {
+            foreach ($request->son_name as $key => $son_name) {
+                Child::create([
+                    'people_id' => $person->id,
+                    'son_name' => $son_name,
+                    'daughter_name' => request()->daughter_name[$key],
+                ]);
+            }
+        }
 
         return redirect()->route('person.index')
             ->with([
@@ -65,12 +86,12 @@ class PersonController extends Controller
         ]);
     }
 
-
     public function edit(Person $person)
     {
         $state = State::get();
         $district = District::get();
         $municipality = Municipality::get();
+
         return view('person.edit')->with([
             'person' => $person,
             'state' => $state,
@@ -79,24 +100,42 @@ class PersonController extends Controller
         ]);
     }
 
-    public function update(UpdateRequest $request, Person $person)
+    public function update(UpdateRequest $request, $id)
     {
-        $person->update($request->data());
-
+        $person = Person::findOrFail($id);
         if ($request->hasFile('image') && $request->image != '') {
             $imagePath = ("images/person/" . $person->image);
 
             if (File::exists($imagePath)) {
                 unlink($imagePath);
             }
+
             $inputFile = $request->file('image');
             $filename = Str::random(10) . '.' . $inputFile->getClientOriginalExtension();
             $inputFile->move('images/person', $filename);
-            // $request->merge(['image' => $filename]);
             $person->image = $filename;
         }
+        $person->update($request->data());
 
-        $person->save();
+        $person->family->where('people_id', $id)
+            ->find($id);
+
+        $person->family->update([
+            'father_name' => request()->father_name,
+            'grandfather_name' => request()->grandfather_name,
+            'grandmother_name' => request()->grandmother_name,
+            'mother_name' => request()->mother_name,
+            'wife_name' => request()->wife_name,
+        ]);
+
+        $person->children->where('people_id', $id)->find($id);
+
+        foreach ($request->son_name as $key => $son_name) {
+            $person->children[$key]->update([
+                'son_name' => $son_name,
+                'daughter_name' => request()->daughter_name[$key],
+            ]);
+        }
 
         return redirect()->route('person.index')
             ->with('success', 'Successfully Updated !!');
@@ -105,6 +144,10 @@ class PersonController extends Controller
     public function destroy(Person $person)
     {
         $person->delete();
+
+        $person->family->where('people_id', $person->id)->delete();
+
+        $person->children[0]->where('people_id', $person->id)->delete();
         return redirect()->route('person.index')
             ->with('success', 'Deleted Successfully');
     }
@@ -120,7 +163,6 @@ class PersonController extends Controller
         }
         echo $html;
     }
-
 
     public function getMunicipality(Request $request)
     {

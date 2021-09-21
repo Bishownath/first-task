@@ -20,11 +20,11 @@ class CreateMunicipalitiesTable extends Migration
             $table->string('code');
             $table->string('ward_number');
             $table->string('slug')->unique();
-            $table->string('status')->default(0);
+            $table->boolean('status')->default(0);
 
             $table->timestamps();
 
-            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade'); //the district cannot be deleted when it has the child record (municipality).
         });
     }
 

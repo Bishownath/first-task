@@ -20,18 +20,6 @@
                             </div>
 
                             <div class="col-md-4">
-
-                                <div class="form-group">
-                                    <label for="slug">Slug</label>
-                                    <input type="text" name="slug" class="form-control" id="slug"
-                                        placeholder="Enter Slug">
-                                    @if ($errors->has('slug'))
-                                        <span class="alert text-danger">{{ $errors->first('slug') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input type="text" name="email" class="form-control" id="email"
@@ -57,8 +45,8 @@
 
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label for="address_2">Address 2</label>
-                                    <input type="text" name="address_2" class="form-control" id="address_2"
+                                    <label for="address_two">Address Two</label>
+                                    <input type="text" name="address_two" class="form-control" id="address_two"
                                         placeholder="Enter address 2 optional">
                                 </div>
                             </div>
@@ -90,9 +78,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="state_id">State ID</label>
+                                    <label for="state_id">State</label>
                                     <select name="state_id" id="state_id" class="form-control">
-                                        <option selected>Select State ID</option>
+                                        <option selected>Select State</option>
                                         @foreach ($state as $st)
                                             <option value="{{ $st->id }}">{{ $st->name }}</option>
                                         @endforeach
@@ -106,9 +94,9 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="district_id">District ID</label>
+                                    <label for="district_id">District</label>
                                     <select name="district_id" id="district_id" class="form-control">
-                                        <option selected>Select District ID</option>
+                                        <option selected>Select District</option>
                                         {{-- @foreach ($district as $dist)
                                             <option value="{{ $dist->id }}">{{ $dist->name }}</option>
                                         @endforeach --}}
@@ -122,9 +110,9 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Municipality ID</label>
+                                    <label for="">Municipality</label>
                                     <select name="municipality_id" id="municipality_id" class="form-control">
-                                        <option selected>Select Municipality ID</option>
+                                        <option selected>Select Municipality</option>
                                         {{-- @foreach ($municipality as $mn)
                                             <option value="{{ $mn->id }}">{{ $mn->name }}</option>
                                         @endforeach --}}
@@ -176,7 +164,7 @@
                                 <div class="form-group">
                                     <label for="">Citizenship Number</label>
                                     <input type="text" name="citizenship_number" class="form-control" id=""
-                                        placeholder="Enter ">
+                                        placeholder="Enter Citizenship Number">
                                     @if ($errors->has('citizenship_number'))
                                         <span class="alert text-danger">{{ $errors->first('citizenship_number') }}</span>
                                     @endif
@@ -188,14 +176,26 @@
                                 <div class="form-group">
                                     <label for="">Passport Number</label>
                                     <input type="text" name="passport_number" class="form-control" id=""
-                                        placeholder="Enter ">
+                                        placeholder="Enter Passport Number">
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Blood Group</label>
-                                    <input type="text" name="blood_group" class="form-control" id="" placeholder="Enter ">
+                                    <select name="blood_group" id="" class="form-control">
+                                        <option value="" selected>Select Blood Group</option>
+                                        <option value="o+">O+
+                                        </option>
+                                        <option value="ab-">AB-
+                                        </option>
+                                        <option value="ab+">AB+
+                                        </option>
+                                        <option value="o-">O-
+                                        </option>
+                                        <option value="b+">B+
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -203,7 +203,7 @@
                                 <div class="form-group">
                                     <label for="">Date Of Birth</label>
                                     <input type="date" name="date_of_birth" class="form-control" id=""
-                                        placeholder="Enter ">
+                                        placeholder="Enter DOB">
                                     @if ($errors->has('date_of_birth'))
                                         <span class="alert text-danger">{{ $errors->first('date_of_birth') }}</span>
                                     @endif
@@ -216,7 +216,7 @@
                                 <div class="form-group">
                                     <label for="">Grandfather Name</label>
                                     <input type="text" name="grandfather_name" class="form-control" id=""
-                                        placeholder="Enter ">
+                                        placeholder="Enter Grandfather Name ">
                                     @if ($errors->has('grandfather_name'))
                                         <span class="alert text-danger">{{ $errors->first('grandfather_name') }}</span>
                                     @endif
@@ -226,7 +226,8 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="">Father Name</label>
-                                    <input type="text" name="father_name" class="form-control" id="" placeholder="Enter ">
+                                    <input type="text" name="father_name" class="form-control" id=""
+                                        placeholder="Enter Father Name">
                                     @if ($errors->has('father_name'))
                                         <span class="alert text-danger">{{ $errors->first('father_name') }}</span>
                                     @endif
@@ -234,12 +235,63 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Grandmother Name</label>
+                                    <input type="text" class="form-control" name="grandmother_name"
+                                        placeholder="Enter grandmother name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Mother Name</label>
+                                    <input type="text" class="form-control" name="mother_name"
+                                        placeholder="Enter mother name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Wife Name</label>
+                                    <input type="text" class="form-control" name="wife_name"
+                                        placeholder="Enter wife name">
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="row ml-3">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="">Son Name</label>
+                                    <input type="text" class="form-control" name="son_name[]"
+                                        placeholder="Enter son name"><br>
+                                    <input type="text" class="form-control" name="son_name[]"
+                                        placeholder="Enter son name"><br>
+                                    <input type="text" class="form-control" name="son_name[]"
+                                        placeholder="Enter son name"><br>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="">Daughter Name</label>
+                                    <input type="text" class="form-control" name="daughter_name[]"
+                                        placeholder="Enter daughter name"><br>
+                                    <input type="text" class="form-control" name="daughter_name[]"
+                                        placeholder="Enter daughter name"><br>
+                                    <input type="text" class="form-control" name="daughter_name[]"
+                                        placeholder="Enter daughter name"><br>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Issued Date</label>
-                                    <input type="date" name="issue_date" class="form-control" id="" placeholder="Enter ">
+                                    <input type="date" name="issue_date" class="form-control" id=""
+                                        placeholder="Enter Issued Date">
                                     @if ($errors->has('issue_date'))
                                         <span class="alert text-danger">{{ $errors->first('issue_date') }}</span>
                                     @endif
@@ -250,7 +302,7 @@
                                 <div class="form-group">
                                     <label for="">Validity Date</label>
                                     <input type="date" name="validity_date" class="form-control" id=""
-                                        placeholder="Enter ">
+                                        placeholder="Enter Validity Date">
                                     @if ($errors->has('validity_date'))
                                         <span class="alert text-danger">{{ $errors->first('validity_date') }}</span>
                                     @endif
@@ -260,7 +312,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Issued By</label>
-                                    <input type="text" name="issued_by" class="form-control" id="" placeholder="Enter ">
+                                    <input type="text" name="issued_by" class="form-control" id=""
+                                        placeholder="Enter Issued By">
                                     @if ($errors->has('issued_by'))
                                         <span class="alert text-danger">{{ $errors->first('issued_by') }}</span>
                                     @endif

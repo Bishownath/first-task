@@ -12,9 +12,8 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => 'max:255|required',
-            'slug' => 'max:255|required|unique:people',
             'address' => 'max:255|required',
-            'address_2' => 'max:255',
+            'address_two' => 'max:255',
             'email' => 'max:255|required|unique:people',
             'phone_number' => 'max:255|required',
             'mobile_number' => 'max:255',
@@ -25,11 +24,9 @@ class StoreRequest extends BaseRequest
             'municipality_id' => 'max:255|required',
             'citizenship_number' => 'max:255|required',
             'passport_number' => 'max:255',
-            'image' => 'max:2048|mimes:jpeg,jpg,png,svg,gif|image',
+            'image' => 'max:2048|mimes:jpeg,jpg,png,svg,gif',
             'blood_group' => 'max:255',
             'date_of_birth' => 'max:255|required',
-            'grandfather_name' => 'max:255|required',
-            'father_name' => 'max:255|required',
             'issue_date' => 'max:255',
             'validity_date' => 'max:255|required',
             'issued_from' => 'max:255',
@@ -41,9 +38,8 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => $this->input('name'),
-            'slug' => $this->input('slug'),
             'address' => $this->input('address'),
-            'address_2' => $this->input('address_2'),
+            'address_two' => $this->input('address_two'),
             'email' => $this->input('email'),
             'phone_number' => $this->input('phone_number'),
             'mobile_number' => $this->input('mobile_number'),
@@ -56,8 +52,6 @@ class StoreRequest extends BaseRequest
             'passport_number' => $this->input('passport_number'),
             'blood_group' => $this->input('blood_group'),
             'date_of_birth' => $this->input('date_of_birth'),
-            'grandfather_name' => $this->input('grandfather_name'),
-            'father_name' => $this->input('father_name'),
             'issue_date' => $this->input('issue_date'),
             'validity_date' => $this->input('validity_date'),
             'issued_from' => $this->input('issued_from'),

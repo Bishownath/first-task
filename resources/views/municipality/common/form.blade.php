@@ -6,13 +6,6 @@
             <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('name') }}**</span>
         @endif
         <br>
-
-        <label for="slug">Slug</label>
-        {!! Form::text('slug', null, ['class' => 'form-control', 'id' => 'slug', 'placeholder' => 'Enter Slug']) !!}
-        @if ($errors->has('slug'))
-            <span class="text-danger invalid feedback" role="alert">**{{ $errors->first('slug') }}**</span>
-        @endif
-        <br>
        
         <label for="code">Code</label>
         {!! Form::text('code', null, ['class' => 'form-control', 'id' => 'code', 'placeholder' => 'Enter code']) !!}

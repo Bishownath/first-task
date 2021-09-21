@@ -90,8 +90,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                         document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -120,6 +121,14 @@
                                 </li>
                             @endforeach
                         </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="justify-content-center d-flex">
+                    <div class="alert alert-danger col-md-10">
+                        {{ session()->get('error') }}
                     </div>
                 </div>
             @endif

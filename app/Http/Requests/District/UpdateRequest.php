@@ -11,7 +11,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'max:255|required',
-            'slug' => 'max:255|required',
             'state_id' => 'max:255'
         ];
     }
@@ -20,7 +19,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => $this->input('name'),
-            'slug' => $this->input('slug'),
             'state_id' => $this->input('state_id'),
         ];
     }
