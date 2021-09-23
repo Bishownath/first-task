@@ -57,25 +57,23 @@
                             @endif
                             <td>{{ $p->created_at->diffForHumans() }}</td>
                             <td>
-                                @if (auth()->user()->check_role == 'admin')
-                                    <a href="{{ route('person.show', $p->id) }}" class="btn btn-info"><i
-                                            class="fa fa-eye"></i></a>
-                                    <a href="{{ route('person.edit', $p->id) }}" class="btn btn-success"><i
-                                            class="fa fa-pen"></i></a>
+
+                                <a href="{{ route('person.edit', $p->id) }}" class="btn btn-success"><i
+                                        class="fa fa-pen"></i></a>
 
 
+
+                                <a href="{{ route('person.show', $p->id) }}" class="btn btn-info"><i
+                                        class="fa fa-eye"></i></a>
+
+                                @can('isAdmin')
                                     <form action="{{ route('person.destroy', $p->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                     </form>
-                                @else
-                                    <a href="{{ route('person.show', $p->id) }}" class="btn btn-info"><i
-                                            class="fa fa-eye"></i></a>
-                                    <a href="{{ route('person.edit', $p->id) }}" class="btn btn-success"><i
-                                            class="fa fa-pen"></i></a>
+                                @endcan
 
-                                @endif
                             </td>
                             </tr>
                 @endforeach

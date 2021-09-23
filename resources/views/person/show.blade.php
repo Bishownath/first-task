@@ -7,9 +7,9 @@
             <div class="card id-image">
                 <div class="card-body">
                     @if ($person->image)
-                        {{-- <img src="{{ asset('images/person/'. $person->image) }}" alt="{{$person->image}}"> --}}
-                        <img src="https://pixelphotocollage.com/assets/images/tom-cruse-2000x3000.jpg"
-                            alt="{{ $person->image }}" width="100px" height="100px">
+                        <img id="single-image" src="{{ asset('images/person/'. $person->image) }}" alt="{{$person->image}}" height="100px" width="100px" >
+                        {{-- <img src="https://pixelphotocollage.com/assets/images/tom-cruse-2000x3000.jpg"
+                            alt="{{ $person->image }}" width="100px" height="100px"> --}}
                     @else
                         <p>No Image Found</p>
                     @endif
@@ -57,7 +57,26 @@
                     </p>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <div class="card">
+                        <div class="card-header">Person Multiple Image</div>
+                        <div class="card-body">
+                            <p>Person Images: <br>
+                                @foreach ($person->images as $i)
+                                <img src="{{ asset('images/person/'. $i->images) }}" alt="" height="100px" width="100px">    
+                                {{-- {{ $i->images }} --}}
+                                    
+                                @endforeach
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        
     </div>
 
     <style>
@@ -66,9 +85,12 @@
         }
 
         .id-image {
-            background: rgb(253, 244, 234);
-            border-radius: 1em;
+            /* background: rgb(253, 244, 234); */
+            border-radius: 10px;
 
+        }
+        #single-image{
+            border-radius: 50px;
         }
 
     </style>

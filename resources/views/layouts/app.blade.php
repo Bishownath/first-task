@@ -44,28 +44,32 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    @if (auth()->user())
+                        <ul class="navbar-nav mr-auto">
+                            
+                            @can('isAdmin')
+                            <li class="nav-item">
+                                <a href="{{ route('user.index') }}" class="nav-link">User</a>
+                            </li>
+                            @endcan
 
-                        <li class="nav-item">
-                            <a href="{{ route('user.index') }}" class="nav-link">User</a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('state.index') }}" class="nav-link">State</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('state.index') }}" class="nav-link">State</a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('district.index') }}" class="nav-link">District</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('district.index') }}" class="nav-link">District</a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('municipality.index') }}" class="nav-link">Municipality</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('municipality.index') }}" class="nav-link">Municipality</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('person.index') }}" class="nav-link">Person</a>
-                        </li>
-                    </ul>
+                            <li class="nav-item">
+                                <a href="{{ route('person.index') }}" class="nav-link">Person</a>
+                            </li>
+                        </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -92,7 +96,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
+                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -115,7 +119,7 @@
                     <div class="col-md-10">
                         <div class="alert alert-danger">
                             **Something Went Wrong**
-                            @foreach ($errors as $error)
+                            @foreach ($errors->all() as $error)
                                 <li>
                                     {{ $error }}
                                 </li>

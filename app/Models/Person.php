@@ -72,4 +72,9 @@ class Person extends Model
     {
         return $this->hasMany(Child::class, 'people_id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(PersonImage::class, 'people_id');
+    }
 }

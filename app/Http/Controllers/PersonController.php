@@ -13,6 +13,7 @@ use App\Http\Requests\Person\StoreRequest;
 use App\Http\Requests\Person\UpdateRequest;
 use App\Models\Child;
 use App\Models\Family;
+use App\Models\PersonImage;
 
 class PersonController extends Controller
 {
@@ -43,12 +44,26 @@ class PersonController extends Controller
     {
         $person = Person::create($request->data());
 
-        if ($request->hasFile('image')) {
-            $inputFile = $request->file('image');
+        if (request()->hasFile('image')) {
+            $inputFile = request()->file('image');
             $filename = time() . Str::random(10) . '.' . $inputFile->getClientOriginalExtension();
             $inputFile->move('images/person', $filename);
             if ($filename) {
                 $person->image = $filename;
+            }
+        }
+
+        if (request()->hasFile('images')) {
+            if ($files = request()->file('images') ) {
+                foreach ($files as $key => $file) {
+                    $filename = time(). Str::random(10). '.' . $file->getClientOriginalExtension(); 
+                    $file->move('images/person', $filename);
+
+                    PersonImage::create([
+                        'people_id' => $person->id,
+                        'images' => $filename,
+                    ]);
+                }
             }
         }
         $person->save();

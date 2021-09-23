@@ -14,6 +14,11 @@ use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('is_admin');
+    }
     public function index()
     {
         $user = User::all();

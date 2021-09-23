@@ -49,8 +49,6 @@
 
                                                 <a href="{{ route('state.show', $st->id) }}" class="btn btn-info"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a href="{{ route('state.edit', $st->id) }}" class="btn btn-success"><i
-                                                        class="fa fa-pen"></i></a>
                                             @endif
                                         </td>
                                     </tr>

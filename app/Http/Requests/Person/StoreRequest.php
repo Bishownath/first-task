@@ -25,6 +25,7 @@ class StoreRequest extends BaseRequest
             'citizenship_number' => 'max:255|required',
             'passport_number' => 'max:255',
             'image' => 'max:2048|mimes:jpeg,jpg,png,svg,gif',
+            'images' => 'max:2048',
             'blood_group' => 'max:255',
             'date_of_birth' => 'max:255|required',
             'issue_date' => 'max:255',

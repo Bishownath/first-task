@@ -58,8 +58,6 @@
                                 @else
                                     <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
                                             class="fa fa-eye"></i></a>
-                                    <a href="{{ route('user.edit', $u->id) }}" class="btn btn-success"><i
-                                            class="fa fa-pen"></i></a>
                                 @endif
                             </td>
                             </tr>

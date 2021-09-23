@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::resource('user', UserController::class)->middleware('is_admin');
 Route::group(['namespace' => 'App\\Http\\Controllers', 'middleware' => 'auth'], function () {
-    Route::resource('user', UserController::class);
-    
+
     Route::post('/getDistrict', 'PersonController@getDistrict')->name('state.getDistrict');
     Route::post('/getMunicipality', 'PersonController@getMunicipality')->name('state.getMunicipality');
 
