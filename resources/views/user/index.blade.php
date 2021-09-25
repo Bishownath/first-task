@@ -44,7 +44,7 @@
                                     <h2>No Image</h2>
                             @endif
                             <td>
-                                @if (auth()->user()->check_role == 'admin')
+                                {{-- @if (auth()->user()->check_role == 'admin') --}}
 
                                     <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
                                             class="fa fa-eye"></i></a>
@@ -55,10 +55,10 @@
                                         @method('DELETE')
                                         <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                     </form>
-                                @else
+                                {{-- @else
                                     <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
-                                            class="fa fa-eye"></i></a>
-                                @endif
+                                            class="fa fa-eye"></i></a> --}}
+                                {{-- @endif --}}
                             </td>
                             </tr>
                             @endforeach

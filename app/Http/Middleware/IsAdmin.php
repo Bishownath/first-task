@@ -19,6 +19,10 @@ class IsAdmin
         if (auth()->user()->check_role === 'admin') {
             return $next($request);
         }
-        abort(403);
+        // abort(403);
+        return redirect('home')
+            ->with([
+                'error' => "You don't have access to this page."
+            ]);
     }
 }

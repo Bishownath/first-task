@@ -14,6 +14,7 @@ use App\Http\Requests\Person\UpdateRequest;
 use App\Models\Child;
 use App\Models\Family;
 use App\Models\PersonImage;
+use Carbon\Carbon;
 
 class PersonController extends Controller
 {
@@ -96,8 +97,12 @@ class PersonController extends Controller
 
     public function show(Person $person)
     {
+        // dd($person->date_of_birth);
+        $date_of_birth = $person->date_of_birth;
+        $age = Carbon::parse($date_of_birth)->age;
         return view('person.show')->with([
             'person' => $person,
+            'age' =>$age,
         ]);
     }
 
