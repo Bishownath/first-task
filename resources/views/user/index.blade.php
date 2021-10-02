@@ -28,39 +28,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user as $key => $u)
+                            @foreach ($users as $key => $user)
                                 <tr>
                                     <td>{{ ++$key }}</td>
-                                    <td>{{ $u->name }}</td>
-                                    <td>{{ $u->email }}</td>
-                                    <td>{{ $u->created_at->diffForHumans() }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at->diffForHumans() }}</td>
                                     <td>
-                                        @if ($u->image)
-
-                                            <img src="{{ asset('images/user/' . $u->image) }}" alt="" width="100px"
+                                        @if ($user->image)
+                                            <img src="{{ asset('images/user/' . $user->image) }}" alt="" width="100px"
                                                 height="100px">
+                                        @else
+                                            <h2>No Image</h2>
+                                        @endif
                                     </td>
-                                @else
-                                    <h2>No Image</h2>
-                            @endif
-                            <td>
-                                {{-- @if (auth()->user()->check_role == 'admin') --}}
 
-                                    <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
-                                            class="fa fa-eye"></i></a>
-                                    <a href="{{ route('user.edit', $u->id) }}" class="btn btn-success"><i
-                                            class="fa fa-pen"></i></a>
-                                    <form action="{{ route('user.destroy', $u->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                    </form>
-                                {{-- @else
-                                    <a href="{{ route('user.show', $u->id) }}" class="btn btn-info"><i
-                                            class="fa fa-eye"></i></a> --}}
-                                {{-- @endif --}}
-                            </td>
-                            </tr>
+                                    <td>
+                                        <a href="{{ route('user.show', $user->id) }}" class="btn btn-info"><i
+                                                class="fa fa-eye"></i></a>
+                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success"><i
+                                                class="fa fa-pen"></i></a>
+                                        <form action="{{ route('user.destroy', $user->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

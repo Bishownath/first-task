@@ -15,39 +15,37 @@
                 <div class="card-header text-center">
                     <h1 class="bold">State Lists</h1>
                 </div>
-                @if ($state->count())
+                @if ($states->count())
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <td>S.N.</td>
                                     <td>Name</td>
-                                    <td>Slug</td>
                                     <td>Created At</td>
                                     <td>Action</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($state as $key => $st)
+                                @foreach ($states as $key => $state)
                                     <tr>
                                         <td>{{ ++$key }}</td>
-                                        <td>{{ $st->name }}</td>
-                                        <td>{{ $st->slug }}</td>
-                                        <td>{{ $st->created_at->diffForHumans() }}</td>
+                                        <td>{{ $state->name }}</td>
+                                        <td>{{ $state->created_at->diffForHumans() }}</td>
                                         <td>
                                             @if (auth()->user()->check_role == 'admin')
-                                                <a href="{{ route('state.show', $st->id) }}" class="btn btn-info"><i
+                                                <a href="{{ route('state.show', $state->id) }}" class="btn btn-info"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a href="{{ route('state.edit', $st->id) }}" class="btn btn-success"><i
+                                                <a href="{{ route('state.edit', $state->id) }}" class="btn btn-success"><i
                                                         class="fa fa-pen"></i></a>
-                                                <form action="{{ route('state.destroy', $st->id) }}" method="post">
+                                                <form action="{{ route('state.destroy', $state->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             @else
 
-                                                <a href="{{ route('state.show', $st->id) }}" class="btn btn-info"><i
+                                                <a href="{{ route('state.show', $state->id) }}" class="btn btn-info"><i
                                                         class="fa fa-eye"></i></a>
                                             @endif
                                         </td>

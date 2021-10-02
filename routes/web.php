@@ -32,7 +32,11 @@ Route::group(['namespace' => 'App\\Http\\Controllers', 'middleware' => 'auth'], 
 
     Route::post('/getDistrict', 'PersonController@getDistrict')->name('state.getDistrict');
     Route::post('/getMunicipality', 'PersonController@getMunicipality')->name('state.getMunicipality');
-
+    
+    Route::get('/person/changeStatus/{id}', 'PersonController@changeStatus')->name('person.changeStatus');
+    
+    Route::get('/person/deleted_person', 'PersonController@deleted_person')->name('person.deleted_person');
+    
     Route::resource('state', StateController::class);
     Route::resource('district', DistrictController::class);
     Route::resource('municipality', MunicipalityController::class);

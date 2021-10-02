@@ -66,7 +66,7 @@ class Person extends Model
 
     public function family()
     {
-        return $this->hasOne(Family::class, 'people_id');
+        return $this->hasOne(Family::class, 'people_id')->withDefault();
     }
     public function children()
     {

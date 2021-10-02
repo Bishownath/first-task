@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\State;
 use App\Models\District;
-use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\District\StoreRequest;
 use App\Http\Requests\District\UpdateRequest;
 
@@ -13,18 +13,17 @@ class DistrictController extends Controller
 
     public function index()
     {
-        $district = District::get();
-
+        $districts = District::get();
         return view('district.index')
             ->with([
-                'district' => $district,
+                'districts' => $districts,
             ]);
     }
 
 
     public function create()
     {
-        $state = State::select('id','name')->pluck('name','id');
+        $state = State::select('id', 'name')->pluck('name', 'id');
         return view('district.create')
             ->with([
                 'state' => $state,
@@ -34,11 +33,9 @@ class DistrictController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $district = District::create($request->data());
-        return redirect()->route('district.index')
-            ->with([
-                'success' => 'Successfully Stored !!',
-            ]);
+        District::create($request->data());
+        Alert::success('Success ', 'Successfully Created !!');
+        return redirect()->route('district.index');
     }
 
 
@@ -52,7 +49,7 @@ class DistrictController extends Controller
 
     public function edit(District $district)
     {
-        $state = State::select('id','name')->pluck('name','id');
+        $state = State::select('id', 'name')->pluck('name', 'id');
         return view('district.edit')->with([
             'district' => $district,
             'state' => $state,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\State;
 use App\Models\District;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
@@ -13,17 +14,18 @@ class MunicipalityController extends Controller
 
     public function index()
     {
-        $municipality = Municipality::all();
-        return view('municipality.index')
-            ->with([
-                'municipality' => $municipality,
-            ]);
+
+        $state = State::get();
+        $district = District::get();
+        $municipalities = Municipality::with('state', 'district')->get();
+
+        return view('municipality.index', compact('state', 'district', 'municipalities'));
     }
 
 
     public function create()
     {
-        $district = District::select('id','name')->pluck('name','id');
+        $district = District::select('id', 'name')->pluck('name', 'id');
         return view('municipality.create')
             ->with([
                 'district' => $district,
@@ -33,7 +35,7 @@ class MunicipalityController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $municipality = Municipality::create($request->data());
+        Municipality::create($request->data());
         return redirect()->route('municipality.index')
             ->with([
                 'success' => 'Successfully Stored !!',
@@ -43,7 +45,7 @@ class MunicipalityController extends Controller
 
     public function show(Municipality $municipality)
     {
-       
+
         return view('municipality.show')
             ->with([
                 'municipality' => $municipality,
@@ -53,7 +55,7 @@ class MunicipalityController extends Controller
 
     public function edit(Municipality $municipality)
     {
-        $district = District::select('id','name')->pluck('name','id');
+        $district = District::select('id', 'name')->pluck('name', 'id');
         return view('municipality.edit')
             ->with([
                 'municipality' => $municipality,

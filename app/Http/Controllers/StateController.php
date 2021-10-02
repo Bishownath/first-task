@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\State;
+use App\Models\District;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\State\StoreRequest;
 use App\Http\Requests\State\UpdateRequest;
-use App\Models\District;
-use Exception;
 
 class StateController extends Controller
 {
 
     public function index()
     {
-        $state = State::get();
+        $states = State::get();
         return view('state.index')->with([
-            'state' => $state,
+            'states' => $states,
         ]);
     }
 
@@ -29,12 +30,10 @@ class StateController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $state = State::create($request->data());
+        State::create($request->data());
 
-        return redirect()->route('state.index')
-            ->with([
-                'success' => 'Stored Successfully',
-            ]);
+        Alert::success('Success','Stored Successfully');
+        return redirect()->route('state.index');
     }
 
 
@@ -58,10 +57,8 @@ class StateController extends Controller
     {
         $state->update($request->data());
 
-        return redirect()->route('state.index')
-            ->with([
-                'success' => 'Successfully Updated',
-            ]);
+        Alert::success('Success','Updated Successfully');
+        return redirect()->route('state.index');
     }
 
 
@@ -69,17 +66,15 @@ class StateController extends Controller
     {
         try{
             $state->delete();
-            return redirect()->route('state.index')
-            ->with([
-                'success' => 'Successfully Deleted !!',
-            ]);
+
+            Alert::success('Success', 'Successfully Deleted !!');
+            
+            return redirect()->route('state.index');
         }
         catch(Exception $e){
             var_dump($e->errorInfo);
-            return redirect()->route('state.index')
-                ->with([
-                    'error' => 'State cannot be deleted when it has the child data in it !!'
-                ]);
+            Alert::warning("Error","State cannot be deleted when it has the child data in it !!");
+            return redirect()->route('state.index');
         }
         
     }

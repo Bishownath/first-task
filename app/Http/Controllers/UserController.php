@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UserDataTable;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\DataTables\UserDataTable;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\StoreRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\User\UpdateRequest;
 
 
 class UserController extends Controller
 {
-    
+
     public function index()
     {
-        $user = User::all();
+        $users = User::all();
 
         return view('user.index')->with([
-            'user' => $user,
+            'users' => $users,
         ]);
     }
 
@@ -48,10 +49,9 @@ class UserController extends Controller
             }
         }
         $user->save();
-        return redirect()->route('user.index')
-            ->with([
-                'success' => 'Successfully Stored !!'
-            ]);
+
+        Alert::success('Success', 'Successfully Stored !!');
+        return redirect()->route('user.index');
     }
 
 
@@ -101,19 +101,31 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('user.index')
-            ->with([
-                'success' => 'User Updated Successfully !!',
-            ]);
+        Alert::success('Success', 'User Updated Successfully !!');
+        return redirect()->route('user.index');
     }
 
 
     public function destroy(User $user)
     {
-        $imagePath = ("images/user/" . $user->image);
-        unlink($imagePath);
-        $user->delete();
-        return redirect()->route('user.index')
-            ->with('success', 'Deleted Successfully !!');
+        // if ($user->delete()) {
+        Alert::warning('Are you sure want to delete?', 'Delete');
+        if (!$user->delete()) {
+            Alert::warning('Cannot find user', 'Cannot find.');
+            return redirect()->back();
+        } else {
+            Alert::success('Success', 'Successfully Deleted.');
+            $imagePath = ("images/user/" . $user->image);
+            if (File::exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $user->delete();
+        }
+        // }
+
+
+        Alert::success('Success', 'Deleted Successfully !!');
+
+        return redirect()->route('user.index');
     }
 }

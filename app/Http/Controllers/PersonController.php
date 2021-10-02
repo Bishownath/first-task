@@ -15,21 +15,16 @@ use App\Models\Child;
 use App\Models\Family;
 use App\Models\PersonImage;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PersonController extends Controller
 {
 
     public function index()
     {
-        $state = State::get();
-        $district = District::get();
-        $municipality = Municipality::get();
-        $person = Person::with('state', 'district', 'municipality')->get();
+        $persons = Person::get();
 
-        return view('person.index', compact('state', 'district', 'municipality'))
-            ->with([
-                'person' => $person,
-            ]);
+        return view('person.index', compact('persons'));
     }
 
 
@@ -55,9 +50,9 @@ class PersonController extends Controller
         }
 
         if (request()->hasFile('images')) {
-            if ($files = request()->file('images') ) {
+            if ($files = request()->file('images')) {
                 foreach ($files as $key => $file) {
-                    $filename = time(). Str::random(10). '.' . $file->getClientOriginalExtension(); 
+                    $filename = time() . Str::random(10) . '.' . $file->getClientOriginalExtension();
                     $file->move('images/person', $filename);
 
                     PersonImage::create([
@@ -88,21 +83,19 @@ class PersonController extends Controller
             }
         }
 
-        return redirect()->route('person.index')
-            ->with([
-                'success' => 'Successfully Stored!!'
-            ]);
+        Alert::success('Success', 'Successfully Stored!!');
+        return redirect()->route('person.index');
     }
 
 
     public function show(Person $person)
     {
-        // dd($person->date_of_birth);
         $date_of_birth = $person->date_of_birth;
         $age = Carbon::parse($date_of_birth)->age;
+
         return view('person.show')->with([
             'person' => $person,
-            'age' =>$age,
+            'age' => $age,
         ]);
     }
 
@@ -168,8 +161,9 @@ class PersonController extends Controller
         $person->family->where('people_id', $person->id)->delete();
 
         $person->children[0]->where('people_id', $person->id)->delete();
-        return redirect()->route('person.index')
-            ->with('success', 'Deleted Successfully');
+
+        Alert::success('Success', 'Deleted Successfully');
+        return redirect()->route('person.index');
     }
 
     public function getDistrict(Request $request)
@@ -195,5 +189,29 @@ class PersonController extends Controller
             $html .= '<option value="' . $mn->id . '"> ' . $mn->name . '</option>';
         }
         echo $html;
+    }
+
+    public function changeStatus($id)
+    {
+        $person = Person::where('id', '=', $id)
+            ->first();
+
+        if ($person->status == 1) {
+            $person->status = 0;
+        } else {
+            $person->status = 1;
+        }
+        $person->save();
+
+        Alert::success('Success', 'Status Changed');
+        return redirect()->back();
+    }
+
+
+    public function deleted_person()
+    {
+        $persons = Person::onlyTrashed()->get();
+
+        return view('person.deleted_person', compact('persons'));
     }
 }

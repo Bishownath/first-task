@@ -1,4 +1,3 @@
-use Carbon\Carbon;
 @extends('layouts.app')
 
 @section('content')
@@ -34,74 +33,98 @@ use Carbon\Carbon;
                         <p>Passport Number: {{ $person->passport_number }}</p>
                     @endif
                     <p>Blood Group: {{ $person->blood_group }}</p>
-                    <p>DOB: {{ $person->date_of_birth }} [ {{ $age . ' years old.'}} ]</p>
-                    <p>Issue Date: {{ $person->issue_date }}</p>
-                    <p>Validity Date: {{ $person->validity_date }}</p>
-                    <p>Issue By: {{ $person->issued_by }}</p>
+
+                    <p>DOB: {{ $person->date_of_birth }} [
+                        {{ \Carbon\Carbon::parse($person->date_of_birth)->age . ' years old.' }} ]</p>
+
+                    {{-- <p>DOB: {{ $person->date_of_birth }} [ {{ $age . ' years old.' }} ]</p> --}}
+                    <p>Maturity:
+                        @switch($person->age)
+                            @case($person->age < 13 )
+                                {{ 'Child' }}
+                            @break
+
+                            @case($person->age < 19)
+                                {{ 'Teen' }}
+                            @break
+
+                            @default
+                                {{ 'Adult' }}
+                                @break
+                            @endswitch
+                        </p>
+                        <p>Issue Date: {{ $person->issue_date }}</p>
+                        <p>Validity Date: {{ $person->validity_date }}</p>
+                        <p>Issue By: {{ $person->issued_by }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <p>Grandfather Name: {{ $person->family->grandfather_name }}</p>
-                    <p>Father Name: {{ $person->family->father_name }}</p>
-                    <p>Mother Name: {{ $person->family->mother_name }}</p>
-                    <p>Grandmother Name: {{ $person->family->grandmother_name }}</p>
-                    <p>Wife Name: {{ $person->family->wife_name }}</p>
-                    <p>Son Name:
-                        @foreach ($person->children as $key => $item)
-                            {{ $item->son_name }} 
-                            @if ($item->son_name)
-                                ,
-                            @elseif ($item->son_name--)
-                                .
-                            @endif
-                        @endforeach
-                    </p>
-                    <p>Daughter Name: @foreach ($person->children as $key => $item)
-                            {{ $item->daughter_name }} ,
-                        @endforeach
-                    </p>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Grandfather Name: {{ $person->family->grandfather_name }}</p>
+                        <p>Father Name: {{ $person->family->father_name }}</p>
+                        <p>Mother Name: {{ $person->family->mother_name }}</p>
+                        <p>Grandmother Name: {{ $person->family->grandmother_name }}</p>
+                        <p>Wife Name: {{ $person->family->wife_name }}</p>
+                        <p>Son Name:
+                            @foreach ($person->children as $key => $item)
+                                {{ $item->son_name }}
+                                @if ($loop->last)
+                                    .
+                                @else
+                                    ,
+                                @endif
+                            @endforeach
+                        </p>
+                        <p>Daughter Name: @foreach ($person->children as $key => $item)
+                                {{ $item->daughter_name }}
+                                @if ($loop->last)
+                                    .
+                                @else
+                                    ,
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12 mt-2">
-                    <div class="card">
-                        <div class="card-header">Person Multiple Image</div>
-                        <div class="card-body">
-                            <p>Person Images: <br>
-                                @foreach ($person->images as $i)
-                                    <img src="{{ asset('images/person/' . $i->images) }}" alt="" height="100px"
-                                        width="100px">
-                                    {{-- {{ $i->images }} --}}
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <div class="card">
+                            <div class="card-header">Person Multiple Image</div>
+                            <div class="card-body">
+                                <p>Person Images: <br>
+                                    @foreach ($person->images as $i)
+                                        <img src="{{ asset('images/person/' . $i->images) }}" alt="" height="100px"
+                                            width="100px">
+                                        {{-- {{ $i->images }} --}}
 
-                                @endforeach
-                            </p>
+                                    @endforeach
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
+        <style>
+            main {
+                background: ghostwhite;
+            }
 
-    </div>
+            .id-image {
+                /* background: rgb(253, 244, 234); */
+                border-radius: 10px;
 
-    <style>
-        main {
-            background: ghostwhite;
-        }
+            }
 
-        .id-image {
-            /* background: rgb(253, 244, 234); */
-            border-radius: 10px;
+            #single-image {
+                border-radius: 50px;
+            }
 
-        }
-
-        #single-image {
-            border-radius: 50px;
-        }
-
-    </style>
-@endsection
+        </style>
+    @endsection

@@ -26,6 +26,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
+    {{-- sweetalert 2 --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @yield('datatables')
 </head>
 
@@ -145,6 +148,7 @@
                 </div>
             @endif
 
+            @include('sweetalert::alert')
 
             @yield('content')
         </main>
